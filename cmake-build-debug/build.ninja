@@ -1,0 +1,164 @@
+## This file contains all the build statements describing the
+# compilation DAG.
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# 
+# Which is the root file.
+# =============================================================================
+
+# =============================================================================
+# Project: FlyingSimulator
+# Configurations: Debug
+# =============================================================================
+
+#############################################
+# Minimal version of Ninja required by this file
+
+ninja_required_version = 1.5
+
+
+#############################################
+# Set configuration variable for custom commands.
+
+CONFIGURATION = Debug
+# =============================================================================
+# Include auxiliary files.
+
+
+#############################################
+# Include rules file.
+
+include CMakeFiles/rules.ninja
+
+# =============================================================================
+
+#############################################
+# Logical path to working directory; prefix for absolute paths.
+
+cmake_ninja_workdir = /Users/nikolai/CLionProjects/FlyingSimulator/cmake-build-debug/
+# =============================================================================
+# Object build statements for EXECUTABLE target FlyingSimulator
+
+
+#############################################
+# Order-only phony target for FlyingSimulator
+
+build cmake_object_order_depends_target_FlyingSimulator: phony || CMakeFiles/FlyingSimulator.dir
+
+build CMakeFiles/FlyingSimulator.dir/src/main.cpp.o: CXX_COMPILER__FlyingSimulator_Debug /Users/nikolai/CLionProjects/FlyingSimulator/src/main.cpp || cmake_object_order_depends_target_FlyingSimulator
+  DEP_FILE = CMakeFiles/FlyingSimulator.dir/src/main.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -DFREEGLUT_STATIC -I/opt/homebrew/Cellar/freeglut/3.4.0/include -std=gnu++20
+  INCLUDES = -I/opt/homebrew/include -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/System/Library/Frameworks -isystem /opt/homebrew/Cellar/freeglut/3.4.0/include
+  OBJECT_DIR = CMakeFiles/FlyingSimulator.dir
+  OBJECT_FILE_DIR = CMakeFiles/FlyingSimulator.dir/src
+
+build CMakeFiles/FlyingSimulator.dir/src/SolveEquations.cpp.o: CXX_COMPILER__FlyingSimulator_Debug /Users/nikolai/CLionProjects/FlyingSimulator/src/SolveEquations.cpp || cmake_object_order_depends_target_FlyingSimulator
+  DEP_FILE = CMakeFiles/FlyingSimulator.dir/src/SolveEquations.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -DFREEGLUT_STATIC -I/opt/homebrew/Cellar/freeglut/3.4.0/include -std=gnu++20
+  INCLUDES = -I/opt/homebrew/include -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/System/Library/Frameworks -isystem /opt/homebrew/Cellar/freeglut/3.4.0/include
+  OBJECT_DIR = CMakeFiles/FlyingSimulator.dir
+  OBJECT_FILE_DIR = CMakeFiles/FlyingSimulator.dir/src
+
+build CMakeFiles/FlyingSimulator.dir/src/ChangeMetrics.cpp.o: CXX_COMPILER__FlyingSimulator_Debug /Users/nikolai/CLionProjects/FlyingSimulator/src/ChangeMetrics.cpp || cmake_object_order_depends_target_FlyingSimulator
+  DEP_FILE = CMakeFiles/FlyingSimulator.dir/src/ChangeMetrics.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -DFREEGLUT_STATIC -I/opt/homebrew/Cellar/freeglut/3.4.0/include -std=gnu++20
+  INCLUDES = -I/opt/homebrew/include -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/System/Library/Frameworks -isystem /opt/homebrew/Cellar/freeglut/3.4.0/include
+  OBJECT_DIR = CMakeFiles/FlyingSimulator.dir
+  OBJECT_FILE_DIR = CMakeFiles/FlyingSimulator.dir/src
+
+build CMakeFiles/FlyingSimulator.dir/src/QuaternionLib.cpp.o: CXX_COMPILER__FlyingSimulator_Debug /Users/nikolai/CLionProjects/FlyingSimulator/src/QuaternionLib.cpp || cmake_object_order_depends_target_FlyingSimulator
+  DEP_FILE = CMakeFiles/FlyingSimulator.dir/src/QuaternionLib.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -DFREEGLUT_STATIC -I/opt/homebrew/Cellar/freeglut/3.4.0/include -std=gnu++20
+  INCLUDES = -I/opt/homebrew/include -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/System/Library/Frameworks -isystem /opt/homebrew/Cellar/freeglut/3.4.0/include
+  OBJECT_DIR = CMakeFiles/FlyingSimulator.dir
+  OBJECT_FILE_DIR = CMakeFiles/FlyingSimulator.dir/src
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target FlyingSimulator
+
+
+#############################################
+# Link the executable FlyingSimulator
+
+build FlyingSimulator: CXX_EXECUTABLE_LINKER__FlyingSimulator_Debug CMakeFiles/FlyingSimulator.dir/src/main.cpp.o CMakeFiles/FlyingSimulator.dir/src/SolveEquations.cpp.o CMakeFiles/FlyingSimulator.dir/src/ChangeMetrics.cpp.o CMakeFiles/FlyingSimulator.dir/src/QuaternionLib.cpp.o | /opt/homebrew/lib/libarmadillo.dylib /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/System/Library/Frameworks/OpenGL.framework/OpenGL.tbd
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk
+  LINK_FLAGS = -L/opt/homebrew/Cellar/freeglut/3.4.0/lib -lglut
+  LINK_LIBRARIES = -Wl,-rpath,/opt/homebrew/Cellar/freeglut/3.4.0/lib  /opt/homebrew/lib/libarmadillo.dylib  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/System/Library/Frameworks/OpenGL.framework/OpenGL.tbd  -lglut
+  LINK_PATH = -L/opt/homebrew/Cellar/freeglut/3.4.0/lib
+  OBJECT_DIR = CMakeFiles/FlyingSimulator.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = FlyingSimulator
+  TARGET_PDB = FlyingSimulator.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/nikolai/CLionProjects/FlyingSimulator/cmake-build-debug && "/Users/nikolai/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/bin/cmake" -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build edit_cache: phony CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/nikolai/CLionProjects/FlyingSimulator/cmake-build-debug && "/Users/nikolai/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/bin/cmake" --regenerate-during-build -S/Users/nikolai/CLionProjects/FlyingSimulator -B/Users/nikolai/CLionProjects/FlyingSimulator/cmake-build-debug
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build rebuild_cache: phony CMakeFiles/rebuild_cache.util
+
+# =============================================================================
+# Target aliases.
+
+# =============================================================================
+# Folder targets.
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/nikolai/CLionProjects/FlyingSimulator/cmake-build-debug
+
+build all: phony FlyingSimulator
+
+# =============================================================================
+# Built-in targets
+
+
+#############################################
+# Re-run CMake if any of its inputs changed.
+
+build build.ninja: RERUN_CMAKE | ../CMakeLists.txt /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCInformation.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCXXInformation.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCommonLanguageInclude.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeGenericSystem.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeInitializeConfigs.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeLanguageInformation.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeSystemSpecificInformation.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeSystemSpecificInitialize.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/AppleClang-C.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/AppleClang-CXX.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/Clang.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/GNU.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindArmadillo.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindGLUT.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindOpenGL.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindPackageHandleStandardArgs.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindPackageMessage.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindPkgConfig.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-AppleClang-C.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-AppleClang-CXX.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang-C.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang-CXX.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Darwin-Initialize.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Darwin.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/UnixPaths.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/SelectLibraryConfigurations.cmake CMakeCache.txt CMakeFiles/3.23.2/CMakeCCompiler.cmake CMakeFiles/3.23.2/CMakeCXXCompiler.cmake CMakeFiles/3.23.2/CMakeSystem.cmake
+  pool = console
+
+
+#############################################
+# A missing CMake input file is not an error.
+
+build ../CMakeLists.txt /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCInformation.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCXXInformation.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCommonLanguageInclude.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeGenericSystem.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeInitializeConfigs.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeLanguageInformation.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeSystemSpecificInformation.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeSystemSpecificInitialize.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/AppleClang-C.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/AppleClang-CXX.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/Clang.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/GNU.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindArmadillo.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindGLUT.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindOpenGL.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindPackageHandleStandardArgs.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindPackageMessage.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindPkgConfig.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-AppleClang-C.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-AppleClang-CXX.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang-C.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang-CXX.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Darwin-Initialize.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Darwin.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/UnixPaths.cmake /Users/nikolai/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/SelectLibraryConfigurations.cmake CMakeCache.txt CMakeFiles/3.23.2/CMakeCCompiler.cmake CMakeFiles/3.23.2/CMakeCXXCompiler.cmake CMakeFiles/3.23.2/CMakeSystem.cmake: phony
+
+
+#############################################
+# Clean all the built files.
+
+build clean: CLEAN
+
+
+#############################################
+# Print all primary targets available.
+
+build help: HELP
+
+
+#############################################
+# Make the all target the default.
+
+default all
