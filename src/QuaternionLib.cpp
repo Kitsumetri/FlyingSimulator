@@ -1,14 +1,14 @@
-#include "QuaternionLib.h"
+#include "Headers/QuaternionLib.h"
 
 namespace QuaternionLib
 {
     // Constructor
     Quaternions::Quaternions() = default;
     [[maybe_unused]] Quaternions::Quaternions(const arma::rowvec &vec)
-    : q_w(vec[0]), q_x(vec[1]), q_y(vec[2]), q_z(vec[3]), q_Q(vec) {}
+    : q_w(vec[w]), q_x(vec[x]), q_y(vec[y]), q_z(vec[z]), q_Q(vec) {}
     Quaternions::Quaternions(const Quaternions &other_Q) = default;
-    Quaternions::Quaternions(double w, double x, double y, double z)
-    : q_w(w), q_x(x), q_y(y), q_z(z), q_Q({w, x, y, z}) {}
+    Quaternions::Quaternions(double w_q, double x_q, double y_q, double z_q)
+    : q_w(w_q), q_x(x_q), q_y(y_q), q_z(z_q), q_Q({w_q, x_q, y_q, z_q}) {}
 
     // Destructor
     Quaternions::~Quaternions() = default;

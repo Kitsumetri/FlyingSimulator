@@ -218,7 +218,7 @@
 		},
 		{
 			"backtrace" : 1,
-			"path" : "src/SolveEquations.h",
+			"path" : "src/Headers/SolveEquations.h",
 			"sourceGroupIndex" : 1
 		},
 		{
@@ -229,7 +229,7 @@
 		},
 		{
 			"backtrace" : 1,
-			"path" : "src/ChangeMetrics.h",
+			"path" : "src/Headers/ChangeMetrics.h",
 			"sourceGroupIndex" : 1
 		},
 		{
@@ -240,7 +240,7 @@
 		},
 		{
 			"backtrace" : 1,
-			"path" : "src/QuaternionLib.h",
+			"path" : "src/Headers/QuaternionLib.h",
 			"sourceGroupIndex" : 1
 		}
 	],

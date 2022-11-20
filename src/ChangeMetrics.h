@@ -1,8 +1,0 @@
-#ifndef FLYINGSIMULATOR_CHANGEMETRICS_H
-#define FLYINGSIMULATOR_CHANGEMETRICS_H
-
-namespace Metrics
-{
-}
-
-#endif

@@ -9,9 +9,9 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(FlyingSimulator
         src/main.cpp
-        src/SolveEquations.cpp src/SolveEquations.h
-        src/ChangeMetrics.cpp src/ChangeMetrics.h
-        src/QuaternionLib.cpp src/QuaternionLib.h)
+        src/SolveEquations.cpp src/Headers/SolveEquations.h
+        src/ChangeMetrics.cpp src/Headers/ChangeMetrics.h
+        src/QuaternionLib.cpp src/Headers/QuaternionLib.h)
 
 include_directories(
         ${ARMADILLO_INCLUDE_DIRS}
