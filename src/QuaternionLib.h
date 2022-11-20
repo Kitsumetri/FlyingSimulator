@@ -6,17 +6,20 @@
 #include <iostream>
 #include <string_view>
 
-namespace QuaternionLib
-{
+namespace QuaternionLib {
+    enum PointType
+    {
+        w [[maybe_unused]], // 0
+        x [[maybe_unused]], // 1
+        y [[maybe_unused]], // 2
+        z [[maybe_unused]] // 3
+    };
     class [[maybe_unused]] Quaternions
     {
     private:
         const char variables[4] = {' ', 'i', 'j', 'k'};
-        double q_w {0};
-        double q_x {0};
-        double q_y {0};
-        double q_z {0};
-        arma::rowvec q_Q {q_w, q_x, q_y, q_z};
+        double q_w {0}; double q_x {0}; double q_y {0}; double q_z {0};
+        arma::rowvec4 q_Q {q_w, q_x, q_y, q_z};
 
         void update_vector();
     public:
