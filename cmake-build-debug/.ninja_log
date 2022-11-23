@@ -1,7 +1,12 @@
 # ninja log v5
-3024	3103	1668970897798890781	FlyingSimulator	312899adaff04367
-18	2451	1668970702757498306	CMakeFiles/FlyingSimulator.dir/src/QuaternionLib.cpp.o	f78e3a5c3893f3c9
-18	208	1668970700519588905	CMakeFiles/FlyingSimulator.dir/src/ChangeMetrics.cpp.o	dc4788a46c751ea0
-16	3006	1668970897694112827	CMakeFiles/FlyingSimulator.dir/src/main.cpp.o	624e38664ad98aa7
-16	3024	1668970897711972704	CMakeFiles/FlyingSimulator.dir/src/SolveEquations.cpp.o	488a66983c82e632
-1	71	1668971278720131830	build.ninja	a3e88d00cd59c8ee
+1050	1088	1669161784850670897	FlyingSimulator	312899adaff04367
+9	1468	1669161753181333802	CMakeFiles/FlyingSimulator.dir/src/QuaternionLib.cpp.o	f78e3a5c3893f3c9
+9	1440	1669161753151615905	CMakeFiles/FlyingSimulator.dir/src/ChangeMetrics.cpp.o	dc4788a46c751ea0
+6	1049	1669161784806083197	CMakeFiles/FlyingSimulator.dir/src/main.cpp.o	624e38664ad98aa7
+15	2092	1669133157908165357	CMakeFiles/FlyingSimulator.dir/src/SolveEquations.cpp.o	488a66983c82e632
+1	71	1669162051171128082	build.ninja	a3e88d00cd59c8ee
+8	1225	1669162166022658284	CMakeFiles/FlyingSimulator.dir/src/main.cpp.o	624e38664ad98aa7
+8	1226	1669162166024511111	CMakeFiles/FlyingSimulator.dir/src/QuaternionLib.cpp.o	f78e3a5c3893f3c9
+1226	1272	1669162166075096973	FlyingSimulator	312899adaff04367
+7	1286	1669162373403946697	CMakeFiles/FlyingSimulator.dir/src/main.cpp.o	624e38664ad98aa7
+1287	1336	1669162373458609879	FlyingSimulator	312899adaff04367

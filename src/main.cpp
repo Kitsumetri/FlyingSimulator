@@ -1,4 +1,5 @@
 #include "Headers/SolveEquations.h"
+#include "Headers/QuaternionLib.h"
 
 int main()
 {
@@ -8,6 +9,8 @@ int main()
     Equations::Differential diff {M, I, omega, 0.4, 0.4,0.6};
 
     auto ans = diff.solve();
+
+    QuaternionLib::Quaternions q (1, 2, 3, 4);
     ans.print();
     return 0;
 }

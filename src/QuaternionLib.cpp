@@ -4,7 +4,7 @@ namespace QuaternionLib
 {
     // Constructor
     Quaternions::Quaternions() = default;
-    [[maybe_unused]] Quaternions::Quaternions(const arma::rowvec &vec)
+    [[maybe_unused]] Quaternions::Quaternions(const arma::rowvec4 &vec)
     : q_w(vec[w]), q_x(vec[x]), q_y(vec[y]), q_z(vec[z]), q_Q(vec) {}
     Quaternions::Quaternions(const Quaternions &other_Q) = default;
     Quaternions::Quaternions(double w_q, double x_q, double y_q, double z_q)
@@ -56,15 +56,28 @@ namespace QuaternionLib
 
     void Quaternions::update_vector() { q_Q = {q_w, q_x, q_y, q_z}; }
 
-    [[maybe_unused]] Quaternions Quaternions::zeros() { return {0, 0, 0, 0}; }
-    [[maybe_unused]] Quaternions Quaternions::absolute() const { return {abs(q_w), abs(q_x), abs(q_y), abs(q_z)}; }
-    [[maybe_unused]] double Quaternions::magnitude() const { return sqrt(q_w*q_w + q_x*q_x + q_y*q_y + q_z*q_z); }
-    [[maybe_unused]] Quaternions Quaternions::normalize() const { return  *this/magnitude(); }
-    [[maybe_unused]] Quaternions Quaternions::conjugate() const { return {q_w, -q_x, -q_y, -q_z}; }
-    [[maybe_unused]] Quaternions Quaternions::inverse() const { return conjugate()/(pow(magnitude(), 2)); }
+    [[maybe_unused]] void Quaternions::zeros() {
+        q_x = q_y = q_z = q_w = 0;
+        q_Q.zeros();
+    }
+    [[maybe_unused]] Quaternions Quaternions::absolute() const {
+        return {abs(q_w), abs(q_x), abs(q_y), abs(q_z)};
+    }
+    [[maybe_unused]] double Quaternions::magnitude() const {
+        return sqrt(q_w*q_w + q_x*q_x + q_y*q_y + q_z*q_z);
+    }
+    [[maybe_unused]] Quaternions Quaternions::normalize() const {
+        return  *this/magnitude();
+    }
+    [[maybe_unused]] Quaternions Quaternions::conjugate() const {
+        return {q_w, -q_x, -q_y, -q_z};
+    }
+    [[maybe_unused]] Quaternions Quaternions::inverse() const {
+        return conjugate()/(pow(magnitude(), 2));
+    }
     [[maybe_unused]] arma::mat Quaternions::rotation_matrix() const
     {
-        arma::mat Q_mat (3, 3);
+        arma::mat33 Q_mat;
         Q_mat = {
                 {1 - 2*q_y*q_y - 2*q_z*q_z, 2*q_x*q_y - 2*q_z*q_w, 2*q_x*q_z - 2*q_y*q_w},
                 {2*q_x*q_y + 2*q_z*q_w, 1 - 2*q_x*q_x - 2*q_z*q_z, 2*q_y*q_z - 2*q_x*q_w},
@@ -74,22 +87,22 @@ namespace QuaternionLib
     }
 
     // Operators
-    Quaternions Quaternions::operator + (double alpha) const {
+    Quaternions Quaternions::operator+(const double alpha) const {
         return {q_w + alpha, q_x, q_y, q_z};
     }
-    Quaternions Quaternions::operator + (const Quaternions& other_q) const {
+    Quaternions Quaternions::operator+(const Quaternions& other_q) const {
         return {q_w + other_q.q_w, q_x + other_q.q_x, q_y + other_q.q_y, q_z + other_q.q_z};
     }
-    Quaternions Quaternions::operator - (double alpha) const {
+    Quaternions Quaternions::operator-(const double alpha) const {
         return {q_w - alpha, q_x, q_y, q_z};
     }
-    Quaternions Quaternions::operator - (const Quaternions& other_q) const {
+    Quaternions Quaternions::operator-(const Quaternions& other_q) const {
         return {q_w - other_q.q_w, q_x - other_q.q_x, q_y - other_q.q_y, q_z - other_q.q_z};
     }
-    Quaternions Quaternions::operator * (const double alpha) const {
+    Quaternions Quaternions::operator*(const double alpha) const {
         return {q_w * alpha, q_x * alpha, q_y * alpha, q_z * alpha};
     }
-    Quaternions Quaternions::operator * (const Quaternions &other_q) const {
+    Quaternions Quaternions::operator*(const Quaternions &other_q) const {
         return {
             q_w*other_q.q_w - q_x*other_q.q_x - q_y*other_q.q_y - q_z*other_q.q_z,
             q_w*other_q.q_x + q_x*other_q.q_w + q_y*other_q.q_z - q_z*other_q.q_y,
@@ -97,10 +110,10 @@ namespace QuaternionLib
             q_w*other_q.q_z + q_x*other_q.q_y - q_y*other_q.q_x + q_z*other_q.q_w
         };
     }
-    Quaternions Quaternions::operator / (double alpha) const {
+    Quaternions Quaternions::operator/(const double alpha) const {
         return {q_w/alpha, q_x/alpha, q_y/alpha, q_z/alpha};
     }
-    Quaternions Quaternions::operator / (const Quaternions &other_q) const
+    Quaternions Quaternions::operator/(const Quaternions &other_q) const
     {
         double d = pow(other_q.q_w, 2) + pow(other_q.q_x, 2) +
                 pow(other_q.q_y, 2) + pow(other_q.q_z, 2);
