@@ -4,9 +4,13 @@ namespace QuaternionLib
 {
     // Constructor
     Quaternions::Quaternions() = default;
-    [[maybe_unused]] Quaternions::Quaternions(const arma::rowvec4 &vec)
+    [[maybe_unused]] Quaternions::Quaternions(const arma::vec4 &vec)
     : q_w(vec[w]), q_x(vec[x]), q_y(vec[y]), q_z(vec[z]), q_Q(vec) {}
     Quaternions::Quaternions(const Quaternions &other_Q) = default;
+
+    Quaternions::Quaternions(double q_0, arma::vec3 u)
+    : q_w(q_0), q_x(u[0]), q_y(u[1]), q_z(u[2]), q_Q({q_0, u[0], u[1], u[2]}) {}
+
     Quaternions::Quaternions(double w_q, double x_q, double y_q, double z_q)
     : q_w(w_q), q_x(x_q), q_y(y_q), q_z(z_q), q_Q({w_q, x_q, y_q, z_q}) {}
 
@@ -36,6 +40,7 @@ namespace QuaternionLib
     [[maybe_unused]] double Quaternions::get_x() const { return q_x; }
     [[maybe_unused]] double Quaternions::get_y() const { return q_y; }
     [[maybe_unused]] double Quaternions::get_z() const { return q_z; }
+    [[maybe_unused]] arma::vec4 Quaternions::get_vec() const { return q_Q; }
 
     [[maybe_unused]] void Quaternions::set_w(double w) {
         q_w = w;
@@ -73,7 +78,7 @@ namespace QuaternionLib
         return {q_w, -q_x, -q_y, -q_z};
     }
     [[maybe_unused]] Quaternions Quaternions::inverse() const {
-        return conjugate()/(pow(magnitude(), 2));
+        return conjugate() / magnitude();
     }
     [[maybe_unused]] arma::mat Quaternions::rotation_matrix() const
     {

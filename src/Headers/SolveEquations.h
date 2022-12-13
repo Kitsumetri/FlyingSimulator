@@ -2,7 +2,11 @@
 #define FLYINGSIMULATOR_SOLVEEQUATIONS_H
 
 #include "armadillo"
+#include <string_view>
 #include <cmath>
+#include <fstream>
+#include <iostream>
+#include <filesystem>
 
 namespace Equations
 {
@@ -23,14 +27,17 @@ namespace Equations
         double d_psi = 0; // trim angle
         double d_fi = 0; // yaw angle
 
-        double time_end = 1;
+        double time_end = 7;
 
-        double d_omega_x_dt();
-        double d_omega_y_dt();
-        double d_omega_z_dt();
-        double d_gamma_dt();
-        double d_psi_dt();
-        double d_fi_dt();
+        static void get_output(const std::string_view& file_name, double variable, double time);
+
+        double d_omega_x_dt(double diff_omega_y, double diff_omega_z);
+        double d_omega_y_dt(double diff_omega_x, double diff_omega_z);
+        double d_omega_z_dt(double diff_omega_x, double diff_omega_y);
+        static double d_gamma_dt(double diff_gamma, double diff_psi,
+                          double diff_omega_x, double diff_omega_y, double diff_omega_z);
+        static double d_psi_dt(double diff_gamma, double diff_omega_y, double diff_omega_z);
+        static double d_fi_dt(double diff_gamma, double diff_fi, double diff_omega_y, double diff_omega_z);
 
     public:
         Differential();
@@ -40,8 +47,6 @@ namespace Equations
         ~Differential();
 
         arma::vec6 solve();
-
-
     };
 }
 

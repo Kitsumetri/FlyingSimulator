@@ -11,7 +11,7 @@ namespace QuaternionLib {
     private:
         const char variables[4] = {' ', 'i', 'j', 'k'};
         double q_w {0}; double q_x {0}; double q_y {0}; double q_z {0};
-        arma::rowvec4 q_Q {q_w, q_x, q_y, q_z};
+        arma::vec4 q_Q {q_w, q_x, q_y, q_z};
 
         enum PointType
         {
@@ -25,8 +25,9 @@ namespace QuaternionLib {
     public:
         // Constructors
         Quaternions();
-        [[maybe_unused]] explicit Quaternions(const arma::rowvec4& vec);
+        [[maybe_unused]] explicit Quaternions(const arma::vec4& vec);
         Quaternions(double w, double x, double y, double z);
+        Quaternions(double q_0, arma::vec3 u);
         Quaternions(const Quaternions &other_Q);
 
         // Destructor
@@ -39,6 +40,7 @@ namespace QuaternionLib {
         [[maybe_unused]] [[nodiscard]] double get_x() const;
         [[maybe_unused]] [[nodiscard]] double get_y() const;
         [[maybe_unused]] [[nodiscard]] double get_z() const;
+        [[maybe_unused]] [[nodiscard]] arma::vec4 get_vec() const;
 
         [[maybe_unused]] void set_w(double w);
         [[maybe_unused]] void set_x(double x);
