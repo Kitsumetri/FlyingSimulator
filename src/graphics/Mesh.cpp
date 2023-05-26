@@ -37,15 +37,12 @@ Mesh::Mesh(std::vector <Vertex>& vertices,
 }
 
 
-void Mesh::Draw
-        (
-                Shader& shader,
+void Mesh::Draw (Shader& shader,
                 Camera& camera,
                 glm::mat4 matrix,
                 glm::vec3 translation,
                 glm::quat rotation,
-                glm::vec3 scale
-        )
+                glm::vec3 scale)
 {
     // Bind shader to be able to access uniforms
     shader.Activate();
@@ -109,7 +106,7 @@ void Mesh::Draw
 
     // Draw the actual mesh
     glDrawElements(GL_TRIANGLES,
-                   indices.size(),
+                   (int)indices.size(),
                    GL_UNSIGNED_INT,
                    nullptr);
 }

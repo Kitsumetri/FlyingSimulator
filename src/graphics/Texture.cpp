@@ -1,4 +1,4 @@
-#include"Texture.h"
+#include "Texture.h"
 
 Texture::Texture(const char* image, const char* texType, GLuint slot) {
     // Assigns the type of the texture ot the texture object

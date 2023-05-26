@@ -1,4 +1,4 @@
-#include"Camera.h"
+#include "Camera.h"
 
 
 Camera::Camera(int width, int height, glm::vec3 position)
@@ -13,7 +13,7 @@ void Camera::updateMatrix(float FOVdeg, float nearPlane, float farPlane)
     glm::mat4 view = glm::mat4(1.0f);
     glm::mat4 projection = glm::mat4(1.0f);
 
-    // Makes camera look in the right direction from the right position
+    // Makes the camera look in the right direction from the right position
     view = glm::lookAt(Position, Position + Orientation, Up);
 
     // Adds perspective to the scene
@@ -69,7 +69,7 @@ void Camera::Inputs(GLFWwindow* window)
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
         if (firstClick) {
-            glfwSetCursorPos(window, (width / 2), (height / 2));
+            glfwSetCursorPos(window, ((double)width / 2), ((double)height / 2));
             firstClick = false;
         }
 

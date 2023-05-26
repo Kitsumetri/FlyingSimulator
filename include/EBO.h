@@ -12,7 +12,7 @@ public:
     // Constructor that generates an Element Buffer Object and links it to indices
     explicit EBO(std::vector<GLuint>& indices);
 
-    void Bind() const;
+    [[maybe_unused]] void Bind() const;
     static void Unbind();
     void Delete();
 };

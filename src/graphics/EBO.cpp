@@ -1,4 +1,4 @@
-#include"EBO.h"
+#include "EBO.h"
 
 EBO::EBO(std::vector<GLuint>& indices)
 {
@@ -11,7 +11,7 @@ EBO::EBO(std::vector<GLuint>& indices)
                  GL_STATIC_DRAW);
 }
 
-void EBO::Bind() const {
+[[maybe_unused]] void EBO::Bind() const {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ID);
 }
 
