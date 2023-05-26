@@ -4,8 +4,8 @@ namespace fs = std::filesystem;
 #include"Model.h"
 
 
-const unsigned int width = 2560;
-const unsigned int height = 1600;
+const unsigned int WIDTH = 800; // 2560;
+const unsigned int HEIGHT = 800; //1600;
 
 
 float skyboxVertices[] =
@@ -64,7 +64,7 @@ unsigned int load_skybox() {
     glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), &skyboxVertices, GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, skyboxEBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(skyboxIndices), &skyboxIndices, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*) nullptr);
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
@@ -77,7 +77,7 @@ int main()
 {
     init_glfw();
 
-    GLFWwindow* window = glfwCreateWindow(width, height, "FlyingSimulator", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "FlyingSimulator", nullptr, nullptr);
     if (!window) {
         std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
@@ -87,7 +87,7 @@ int main()
     glfwMakeContextCurrent(window);
     gladLoadGL();
 
-    glViewport(0, 0, width, height);
+    glViewport(0, 0, WIDTH, HEIGHT);
 
     // Generates Shader objects
     Shader shaderProgram("/Users/nikolai/CLionProjects/FlyingSimulator/src/verts/default.vert",
@@ -118,7 +118,7 @@ int main()
     glFrontFace(GL_CCW);
 
     // Creates camera object
-    Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
+    Camera camera(WIDTH, HEIGHT, glm::vec3(0.0f, 0.0f, 2.0f));
 
 
     std::string parentDir = (fs::current_path().fs::path::parent_path()).string();
@@ -159,12 +159,10 @@ int main()
 
 
     // Cycles through all the textures and attaches them to the cubemap object
-    for (unsigned int i = 0; i < 6; i++)
-    {
+    for (unsigned int i = 0; i < 6; i++) {
         int width, height, nrChannels;
         unsigned char* data = stbi_load(facesCubemap[i].c_str(), &width, &height, &nrChannels, 0);
-        if (data)
-        {
+        if (data) {
             stbi_set_flip_vertically_on_load(false);
             glTexImage2D
                     (
@@ -227,7 +225,7 @@ int main()
         // Draw the normal model
         model.Draw(shaderProgram, camera);
 
-        // Since the cubemap will always have a depth of 1.0, we need that equal sign so it doesn't get discarded
+        // Since the cubemap will always have a depth of 1.0, we need that equal sign, so it doesn't get discarded
         glDepthFunc(GL_LEQUAL);
 
         skyboxShader.Activate();
@@ -236,16 +234,16 @@ int main()
         // We make the mat4 into a mat3 and then a mat4 again in order to get rid of the last row and column
         // The last row and column affect the translation of the skybox (which we don't want to affect)
         view = glm::mat4(glm::mat3(glm::lookAt(camera.Position, camera.Position + camera.Orientation, camera.Up)));
-        projection = glm::perspective(glm::radians(45.0f), (float)width / height, 0.1f, 100.0f);
+        projection = glm::perspective(glm::radians(45.0f), (float)WIDTH / HEIGHT, 0.1f, 100.0f);
         glUniformMatrix4fv(glGetUniformLocation(skyboxShader.ID, "view"), 1, GL_FALSE, glm::value_ptr(view));
         glUniformMatrix4fv(glGetUniformLocation(skyboxShader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
-        // Draws the cubemap as the last object so we can save a bit of performance by discarding all fragments
+        // Draws the cubemap as the last object, so we can save a bit of performance by discarding all fragments
         // where an object is present (a depth of 1.0f will always fail against any object's depth value)
         glBindVertexArray(skybox_VAO);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
-        glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, nullptr);
         glBindVertexArray(0);
 
         // Switch back to the normal depth function

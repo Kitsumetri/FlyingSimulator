@@ -9,8 +9,8 @@ using json = nlohmann::json;
 class Model
 {
 public:
-    // Loads in a model from a file and stores tha information in 'data', 'JSON', and 'file'
-    Model(const char* file);
+    // Loads in a model from a file and stores the information in 'data', 'JSON', and 'file'
+    explicit Model(const char* file);
 
     void Draw(Shader& shader, Camera& camera);
 
@@ -45,7 +45,7 @@ private:
     std::vector<Texture> getTextures();
 
     // Assembles all the floats into vertices
-    std::vector<Vertex> assembleVertices
+    static std::vector<Vertex> assembleVertices
             (
                     std::vector<glm::vec3> positions,
                     std::vector<glm::vec3> normals,
@@ -53,8 +53,9 @@ private:
             );
 
     // Helps with the assembly from above by grouping floats
-    std::vector<glm::vec2> groupFloatsVec2(std::vector<float> floatVec);
-    std::vector<glm::vec3> groupFloatsVec3(std::vector<float> floatVec);
-    std::vector<glm::vec4> groupFloatsVec4(std::vector<float> floatVec);
+    static std::vector<glm::vec2> groupFloatsVec2(std::vector<float> floatVec);
+    static std::vector<glm::vec3> groupFloatsVec3(std::vector<float> floatVec);
+
+    [[maybe_unused]] static std::vector<glm::vec4> groupFloatsVec4(std::vector<float> floatVec);
 };
 #endif
