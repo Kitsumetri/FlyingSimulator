@@ -8,12 +8,12 @@ file(GLOB_RECURSE SOURCES_MATH src/math/*.cpp)
 file(GLOB_RECURSE SOURCES_GRAPHICS src/graphics/*.cpp)
 file(GLOB_RECURSE SOURCES src/*.cpp)
 file(GLOB_RECURSE SOURCES_SOIL2 src/SOIL_SRC/*.c)
+file(GLOB_RECURSE SOURCES_UTILS src/utils/.cpp)
 
 find_package(Armadillo REQUIRED)
 find_package(OpenGL REQUIRED)
 
 find_package(GLUT REQUIRED)
-find_package(assimp REQUIRED)
 
 FetchContent_Declare(
         glfw
@@ -66,13 +66,13 @@ add_executable(
         ${SOURCES_MATH}
         ${SOURCES_SOIL2}
         ${SOURCES_GRAPHICS}
+        ${SOURCES_UTILS}
 )
 
 include_directories(
         ${ARMADILLO_INCLUDE_DIRS}
         ${OPENGL_INCLUDE_DIRS}
         ${GLUT_INCLUDE_DIRS}
-        ${assimp_INCLUDE_DIRS}
 )
 target_include_directories(FlyingSimulator PUBLIC include)
 target_include_directories(FlyingSimulator PUBLIC SOIL2)
@@ -83,6 +83,5 @@ target_link_libraries(FlyingSimulator
         GLUT::GLUT
         glfw
         glad
-        ${ASSIMP_LIBRARIES}
         ${glm_LIBRARIES}
 )
