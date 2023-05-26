@@ -45,6 +45,14 @@ unsigned int skyboxIndices[] =
 
 int SAMPLES = 8;
 
+void init_glfw() {
+    glfwInit();
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_SAMPLES, SAMPLES);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+}
+
 
 unsigned int load_skybox() {
     unsigned int skyboxVAO, skyboxVBO, skyboxEBO;
@@ -67,12 +75,7 @@ unsigned int load_skybox() {
 
 int main()
 {
-    // Initialize GLFW
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_SAMPLES, SAMPLES);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    init_glfw();
 
     GLFWwindow* window = glfwCreateWindow(width, height, "FlyingSimulator", nullptr, nullptr);
     if (!window) {
@@ -98,8 +101,12 @@ int main()
     glm::vec3 lightPos = glm::vec3(0.5f, 0.5f, 0.5f);
 
     shaderProgram.Activate();
-    glUniform4f(glGetUniformLocation(shaderProgram.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
-    glUniform3f(glGetUniformLocation(shaderProgram.ID, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
+    glUniform4f(glGetUniformLocation(shaderProgram.ID, "lightColor"),
+                lightColor.x, lightColor.y, lightColor.z, lightColor.w);
+
+    glUniform3f(glGetUniformLocation(shaderProgram.ID, "lightPos"),
+                lightPos.x, lightPos.y, lightPos.z);
+
     skyboxShader.Activate();
     glUniform1i(glGetUniformLocation(skyboxShader.ID, "skybox"), 0);
 
@@ -123,9 +130,7 @@ int main()
     double prevTime = 0.0;
     double crntTime;
     double timeDiff;
-
     unsigned int counter = 0;
-
 
     // Create VAO, VBO, and EBO for the skybox
     unsigned int skybox_VAO = load_skybox();
@@ -151,8 +156,7 @@ int main()
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-    // This might help with seams on some systems
-    //glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
+
 
     // Cycles through all the textures and attaches them to the cubemap object
     for (unsigned int i = 0; i < 6; i++)
@@ -256,12 +260,9 @@ int main()
 
 
 
-    // Delete all the objects we've created
     shaderProgram.Delete();
     skyboxShader.Delete();
-    // Delete window before ending the program
     glfwDestroyWindow(window);
-    // Terminate GLFW before ending the program
     glfwTerminate();
     return 0;
 }
