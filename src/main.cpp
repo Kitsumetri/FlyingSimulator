@@ -1,7 +1,7 @@
 #include "Model.h"
 #include "Constants.h"
 
-
+#pragma region SKYBOX_CONSTANTS
 constinit float SKYBOX_VERTICES[] =
         {
                 //   Coordinates
@@ -15,8 +15,7 @@ constinit float SKYBOX_VERTICES[] =
                 -1.0f, 1.0f, -1.0f
         };
 
-constinit  unsigned int SKYBOX_INDICES[] =
-        {
+constinit  unsigned int SKYBOX_INDICES[] = {
                 // Right
                 1, 2, 6,
                 6, 5, 1,
@@ -36,7 +35,7 @@ constinit  unsigned int SKYBOX_INDICES[] =
                 3, 7, 6,
                 6, 2, 3
         };
-
+#pragma endregion
 
 void init_glfw() {
     glfwInit();
@@ -159,9 +158,15 @@ int main()
 
     Camera camera(UtilConstants::WIDTH,
                   UtilConstants::HEIGHT,
-                  glm::vec3(0.0f, 0.0f, 2.0f));
+                  glm::vec3(0.0f, 0.0f, 0.0f));
+
 
     Model model((UtilConstants::PARENT_DIRECTORY + UtilConstants::MODEL_PATH).c_str());
+    Model model2((UtilConstants::PARENT_DIRECTORY +  "/Resources/models/bunny/scene.gltf").c_str());
+
+
+    model.Position = glm::vec3(0.0f,  -1.0f, -6.0f);
+    model2.Position = glm::vec3(0.0f,  -1.0f, -6.0f);
 
     // Create VAO, VBO, and EBO for the skybox
     unsigned int skybox_VAO = load_skybox();
@@ -177,6 +182,7 @@ int main()
     // Main while loop
     while (!glfwWindowShouldClose(window))
     {
+#pragma region FPS
         // Updates counter and times
         crntTime = glfwGetTime();
         timeDiff = crntTime - prevTime;
@@ -193,34 +199,42 @@ int main()
             prevTime = crntTime;
             counter = 0;
         }
-
+#pragma endregion
         glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        camera.Inputs(window); // delete if you have Vsync disabled
+        camera.Inputs(window); // delete if Vsync disabled
+        model.Input(window);
         // Updates and exports the camera matrix to the Vertex Shader
         camera.updateMatrix(45.0f, 0.1f, 100.0f);
 
-        model.Draw(shaderProgram, camera);
         glDepthFunc(GL_LEQUAL);
-
+        model.Draw(shaderProgram, camera);
+        model2.Draw(shaderProgram, camera);
         skyboxShader.Activate();
-        glm::mat4 view = glm::mat4(1.0f);
-        glm::mat4 projection = glm::mat4(1.0f);
 
-        view = glm::mat4(glm::mat3(glm::lookAt(camera.Position,
+        camera.Position = model.Position;
+        camera.Position.z += 7.0f;
+        camera.Position.y += 2.0f;
+
+
+        glm::mat4 view = glm::mat4(glm::mat3(glm::lookAt(camera.Position,
                                                     camera.Position + camera.Orientation, camera.Up)));
-        projection = glm::perspective(glm::radians(45.0f),
+
+        glm::mat4 projection = glm::perspective(glm::radians(45.0f),
                                       (float)UtilConstants::WIDTH / (float)UtilConstants::HEIGHT,
                                       0.1f,
                                       100.0f);
+
         glUniformMatrix4fv(glGetUniformLocation(skyboxShader.ID, "view"),
                            1, GL_FALSE,
                            glm::value_ptr(view));
 
+
         glUniformMatrix4fv(glGetUniformLocation(skyboxShader.ID, "projection"),
                            1, GL_FALSE,
                            glm::value_ptr(projection));
+
 
         glBindVertexArray(skybox_VAO);
         glActiveTexture(GL_TEXTURE0);

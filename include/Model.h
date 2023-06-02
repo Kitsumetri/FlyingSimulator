@@ -12,7 +12,18 @@ public:
     // Loads in a model from a file and stores the information in 'data', 'JSON', and 'file'
     explicit Model(const char* file);
 
+    glm::vec3 Position{};
+    glm::vec3 Orientation = glm::vec3(0.0f, 0.0f, -1.0f);
+    glm::vec3 Up = glm::vec3(0.0f, 1.0f, 0.0f);
+    glm::mat4 cameraMatrix = glm::mat4(1.0f);
+    float speed = 0.1f;
+    float sensitivity = 100.0f;
+
+
     void Draw(Shader& shader, Camera& camera);
+    void Input(GLFWwindow* window);
+    void UpdateMatrix(float FOVdeg, float nearPlane, float farPlane);
+    void Matrix(Shader& shader, const char* uniform);
 
 private:
     // Variables for easy access

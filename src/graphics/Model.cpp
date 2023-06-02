@@ -1,4 +1,5 @@
 #include "Model.h"
+#include "Constants.h"
 
 Model::Model(const char* file) {
     // Make a JSON object
@@ -16,7 +17,7 @@ Model::Model(const char* file) {
 void Model::Draw(Shader& shader, Camera& camera) {
     // Go over all meshes and draw each one
     for (unsigned int i = 0; i < meshes.size(); i++)
-        meshes[i].Mesh::Draw(shader, camera, matricesMeshes[i]);
+        meshes[i].Mesh::Draw(shader, camera, Position, matricesMeshes[i]);
 }
 
 void Model::loadMesh(unsigned int indMesh) {
@@ -89,6 +90,7 @@ void Model::traverseNode(unsigned int nextNode, glm::mat4 matrix) {
     glm::mat4 trans = glm::mat4(1.0f);
     glm::mat4 rot = glm::mat4(1.0f);
     glm::mat4 sca = glm::mat4(1.0f);
+
 
     // Use translation, rotation, and scale to change the initialized matrices
     trans = glm::translate(trans, translation);
@@ -285,4 +287,54 @@ std::vector<glm::vec3> Model::groupFloatsVec3(std::vector<float> floatVec) {
     for (int i = 0; i < floatVec.size();)
         vectors.emplace_back(glm::vec4(floatVec[i++], floatVec[i++], floatVec[i++], floatVec[i++]));
     return vectors;
+}
+
+void Model::Input(GLFWwindow *window) {
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        Position += speed * Orientation;
+
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        Position += speed * -glm::normalize(glm::cross(Orientation, Up));
+
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        Position += speed * -Orientation;
+
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        Position += speed * glm::normalize(glm::cross(Orientation, Up));
+
+    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+        Position += speed * Up;
+
+    if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
+        Position += speed * -Up;
+
+    if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+        speed = 0.4f;
+
+    else if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE)
+        speed = 0.1f;
+}
+
+void Model::UpdateMatrix(float FOVdeg, float nearPlane, float farPlane) {
+    glm::mat4 view = glm::mat4(1.0f);
+    glm::mat4 projection = glm::mat4(1.0f);
+
+    view = glm::lookAt(Position, Position + Orientation, Up);
+
+    projection = glm::perspective(glm::radians(FOVdeg),
+                                  (float)UtilConstants::WIDTH /(float) UtilConstants::HEIGHT,
+                                  nearPlane,
+                                  farPlane);
+
+    // Sets new camera matrix
+    cameraMatrix = projection * view;
+}
+
+void Model::Matrix(Shader& shader, const char* uniform)
+{
+    // Exports camera matrix
+    glUniformMatrix4fv(glGetUniformLocation(shader.ID, uniform),
+                       1,
+                       GL_FALSE,
+                       glm::value_ptr(cameraMatrix));
 }

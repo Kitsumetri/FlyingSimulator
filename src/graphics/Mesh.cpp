@@ -39,8 +39,8 @@ Mesh::Mesh(std::vector <Vertex>& vertices,
 
 void Mesh::Draw (Shader& shader,
                 Camera& camera,
-                glm::mat4 matrix,
                 glm::vec3 translation,
+                glm::mat4 matrix,
                 glm::quat rotation,
                 glm::vec3 scale)
 {
