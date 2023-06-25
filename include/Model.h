@@ -3,6 +3,7 @@
 
 #include "json.h"
 #include "Mesh.h"
+#include "armadillo"
 
 using json = nlohmann::json;
 
@@ -16,14 +17,12 @@ public:
     glm::vec3 Orientation = glm::vec3(0.0f, 0.0f, -1.0f);
     glm::vec3 Up = glm::vec3(0.0f, 1.0f, 0.0f);
     glm::mat4 cameraMatrix = glm::mat4(1.0f);
-    float speed = 0.1f;
-    float sensitivity = 100.0f;
-
+    float speed = 2.0f;
+    float phi = 0;
 
     void Draw(Shader& shader, Camera& camera);
     void Input(GLFWwindow* window);
-    void UpdateMatrix(float FOVdeg, float nearPlane, float farPlane);
-    void Matrix(Shader& shader, const char* uniform);
+    void calculateMovement(float dt);
 
 private:
     // Variables for easy access
@@ -68,5 +67,13 @@ private:
     static std::vector<glm::vec3> groupFloatsVec3(std::vector<float> floatVec);
 
     [[maybe_unused]] static std::vector<glm::vec4> groupFloatsVec4(std::vector<float> floatVec);
+
+    float dx_dt, d_Vx_dt, dz_dt, d_Vz_dt, d_phi_dt, d_omega_w_dt;
+    glm::vec3 omega {0.0f};
+    glm::vec3 v{0.0f};
+
+    float rotated_angle = 0.0f;
+
+    static float T(float v);
 };
 #endif

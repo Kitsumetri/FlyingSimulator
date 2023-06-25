@@ -289,52 +289,54 @@ std::vector<glm::vec3> Model::groupFloatsVec3(std::vector<float> floatVec) {
     return vectors;
 }
 
+float calculate_F_z(float angle) {
+    double coefficient = 1.0;
+    double Fz = coefficient * angle;
+    return Fz;
+}
+
+
 void Model::Input(GLFWwindow *window) {
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        Position += speed * Orientation;
-
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        Position += speed * -glm::normalize(glm::cross(Orientation, Up));
-
-    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        Position += speed * -Orientation;
+        rotated_angle -= 1;
+//    else
+//        if (rotated_angle < 0)
+//            rotated_angle += 1;
 
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        Position += speed * glm::normalize(glm::cross(Orientation, Up));
-
-    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
-        Position += speed * Up;
-
-    if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
-        Position += speed * -Up;
-
-    if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-        speed = 0.4f;
-
-    else if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE)
-        speed = 0.1f;
+        rotated_angle += 1;
+//    else
+//        if (rotated_angle > 0)
+//            rotated_angle -= 1;
 }
 
-void Model::UpdateMatrix(float FOVdeg, float nearPlane, float farPlane) {
-    glm::mat4 view = glm::mat4(1.0f);
-    glm::mat4 projection = glm::mat4(1.0f);
 
-    view = glm::lookAt(Position, Position + Orientation, Up);
-
-    projection = glm::perspective(glm::radians(FOVdeg),
-                                  (float)UtilConstants::WIDTH /(float) UtilConstants::HEIGHT,
-                                  nearPlane,
-                                  farPlane);
-
-    // Sets new camera matrix
-    cameraMatrix = projection * view;
+float Model::T(float x) {
+    return -28 * x + 6970;
 }
 
-void Model::Matrix(Shader& shader, const char* uniform)
-{
-    // Exports camera matrix
-    glUniformMatrix4fv(glGetUniformLocation(shader.ID, uniform),
-                       1,
-                       GL_FALSE,
-                       glm::value_ptr(cameraMatrix));
+void Model::calculateMovement(float dt) {
+    using namespace UtilConstants;
+
+    dx_dt += v.x * dt;
+    d_Vx_dt += (Model::T(glm::length(v)) -
+            (C_X * S * (float)RHO * powf(glm::length(v), 1)) / 2) * cosf(phi) / (float)M * dt;
+
+    dz_dt += v.z * dt;
+    d_Vz_dt += (Model::T(glm::length(v)) -
+                (C_X * S * (float)RHO * powf(glm::length(v), 1)) / 2) * sinf(phi) / (float)M * dt;
+
+    d_phi_dt += omega.y * dt;
+
+    d_omega_w_dt += (float)L * calculate_F_z(rotated_angle) / (float)I_Y * dt;
+
+    Position.x = dz_dt * speed;
+    Position.z = -dx_dt;
+
+    v.x = d_Vx_dt;
+    v.z = d_Vz_dt;
+    // std::cout << v.x << " " << v.y << " " << v.z << std::endl;
+
+    phi = d_phi_dt;
+    omega.y = d_omega_w_dt;
 }

@@ -164,9 +164,8 @@ int main()
     Model model((UtilConstants::PARENT_DIRECTORY + UtilConstants::MODEL_PATH).c_str());
     Model model2((UtilConstants::PARENT_DIRECTORY +  "/Resources/models/bunny/scene.gltf").c_str());
 
-
-    model.Position = glm::vec3(0.0f,  -1.0f, -6.0f);
-    model2.Position = glm::vec3(0.0f,  -1.0f, -6.0f);
+    model.Position = glm::vec3(0.0f,  0.0f, 0.0f);
+    model2.Position = glm::vec3(1.0f,  0.0f, 50.0f);
 
     // Create VAO, VBO, and EBO for the skybox
     unsigned int skybox_VAO = load_skybox();
@@ -176,22 +175,21 @@ int main()
 
     // FPS
     double prevTime = 0.0;
-    double crntTime, timeDiff;
+    double crntTime, dt;
     unsigned int counter = 0;
+    double prevSceneTime = 0;
 
     // Main while loop
     while (!glfwWindowShouldClose(window))
     {
-#pragma region FPS
-        // Updates counter and times
         crntTime = glfwGetTime();
-        timeDiff = crntTime - prevTime;
+        dt = crntTime - prevTime;
         counter++;
-
-        if (timeDiff >= 1.0 / 60.0) {
+#pragma region FPS
+        if (dt >= 1.0 / 60.0) {
             // Creates new title
-            std::string FPS = std::to_string((1.0 / timeDiff) * counter);
-            std::string ms = std::to_string((timeDiff / counter) * 1000);
+            std::string FPS = std::to_string((1.0 / dt) * counter);
+            std::string ms = std::to_string((dt / counter) * 1000);
             std::string newTitle =  FPS.append("FPS / ").append(ms).append("ms");
             glfwSetWindowTitle(window, newTitle.c_str());
 
@@ -202,9 +200,21 @@ int main()
 #pragma endregion
         glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glEnable(GL_NORMALIZE);
 
-        camera.Inputs(window); // delete if Vsync disabled
+        camera.Inputs(window);
         model.Input(window);
+
+        std::cout << model.phi << " " << model.Position.x << std::endl;
+
+        model.calculateMovement((float)crntTime - (float)prevSceneTime);
+
+        prevSceneTime = glfwGetTime();
+
+        // Обновляю позицию
+        model.Draw(shaderProgram, camera);
+
+
         // Updates and exports the camera matrix to the Vertex Shader
         camera.updateMatrix(45.0f, 0.1f, 100.0f);
 

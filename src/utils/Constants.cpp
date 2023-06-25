@@ -29,4 +29,11 @@ namespace UtilConstants {
     const std::string MODEL_PATH = "/Resources/models/airplane/scene.gltf";
 
     const int SAMPLES = 8;
+
+    constinit int M = 6000;
+    constinit float C_X = 0.6f;
+    constinit float S = 10.6f;
+    constinit int L = 2;
+    constinit int I_Y = 57500;
+    constinit int RHO = 1000;
 }
