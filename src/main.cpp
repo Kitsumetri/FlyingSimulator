@@ -161,11 +161,16 @@ int main()
                   glm::vec3(0.0f, 0.0f, 0.0f));
 
 
+    // Model model((UtilConstants::PARENT_DIRECTORY + "/Resources/models/model_new/low-poly_boat/scene.gltf").c_str());
     Model model((UtilConstants::PARENT_DIRECTORY + UtilConstants::MODEL_PATH).c_str());
-    Model model2((UtilConstants::PARENT_DIRECTORY +  "/Resources/models/bunny/scene.gltf").c_str());
 
-    model.Position = glm::vec3(0.0f,  0.0f, 0.0f);
-    model2.Position = glm::vec3(1.0f,  0.0f, 50.0f);
+    Model model3((UtilConstants::PARENT_DIRECTORY + "/Resources/models/ground/scene.gltf").c_str());
+
+
+    model.Position = glm::vec3(0.0f,   0.0f, 0.0f);
+    model.scale = glm::vec3(0.5f);
+    model3.Position = glm::vec3 (0.0f, 0.0f, -10.0f);
+    model3.scale = glm::vec3(5.0f, 1.0f, 5.0f);
 
     // Create VAO, VBO, and EBO for the skybox
     unsigned int skybox_VAO = load_skybox();
@@ -205,27 +210,34 @@ int main()
         camera.Inputs(window);
         model.Input(window);
 
-        std::cout << model.phi << " " << model.Position.x << std::endl;
-
-        model.calculateMovement((float)crntTime - (float)prevSceneTime);
-
+        float new_dt = (float)crntTime - (float)prevSceneTime;
+        model.calculateMovement(new_dt);
         prevSceneTime = glfwGetTime();
-
-        // Обновляю позицию
-        model.Draw(shaderProgram, camera);
-
 
         // Updates and exports the camera matrix to the Vertex Shader
         camera.updateMatrix(45.0f, 0.1f, 100.0f);
+        // model.rotation = glm::angleAxis(glm::radians(270 - 180 - model.phi * 50), model.Up);
+        model.rotation = glm::angleAxis(glm::radians(180 - model.phi * 50), model.Up);
+
+        std::cout << model.Position.x << " "
+                  << model.phi << " "
+                  << model.omega.y << " "
+                  << model.v.x << " "
+                  << model.v.z << " "
+                  << crntTime
+        << std::endl;
 
         glDepthFunc(GL_LEQUAL);
         model.Draw(shaderProgram, camera);
-        model2.Draw(shaderProgram, camera);
-        skyboxShader.Activate();
-
         camera.Position = model.Position;
-        camera.Position.z += 7.0f;
-        camera.Position.y += 2.0f;
+        camera.Position.y += 3.0f;
+        camera.Position.z += 6.0f;
+
+
+        model3.rotation = glm::angleAxis(glm::radians(180.0f),
+                                         model3.Orientation);
+        model3.Draw(shaderProgram, camera);
+        skyboxShader.Activate();
 
 
         glm::mat4 view = glm::mat4(glm::mat3(glm::lookAt(camera.Position,

@@ -17,8 +17,14 @@ public:
     glm::vec3 Orientation = glm::vec3(0.0f, 0.0f, -1.0f);
     glm::vec3 Up = glm::vec3(0.0f, 1.0f, 0.0f);
     glm::mat4 cameraMatrix = glm::mat4(1.0f);
-    float speed = 2.0f;
+    float speed = 1.0f;
     float phi = 0;
+    float rotated_angle = 0.0f;
+    glm::vec3 omega {0.0f};
+    glm::vec3 v{0.0f};
+
+    glm::quat rotation = glm::quat(0.0f, 0.0f, 1.0f, 0.0f);
+    glm::vec3 scale = glm::vec3(1.0f, 1.0f, 1.0f);
 
     void Draw(Shader& shader, Camera& camera);
     void Input(GLFWwindow* window);
@@ -69,10 +75,6 @@ private:
     [[maybe_unused]] static std::vector<glm::vec4> groupFloatsVec4(std::vector<float> floatVec);
 
     float dx_dt, d_Vx_dt, dz_dt, d_Vz_dt, d_phi_dt, d_omega_w_dt;
-    glm::vec3 omega {0.0f};
-    glm::vec3 v{0.0f};
-
-    float rotated_angle = 0.0f;
 
     static float T(float v);
 };

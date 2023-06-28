@@ -2,8 +2,8 @@
 
 namespace UtilConstants {
 
-    const int WIDTH = 1000; // 800;
-    const int HEIGHT = 1000; //800;
+    const int WIDTH = 800; // 800;
+    const int HEIGHT = 800; //800;
 
     const std::string PARENT_DIRECTORY = (std::filesystem::current_path().std::filesystem::path::parent_path()).string();
     const std::string CUBEMAPS_PATH[6] =
